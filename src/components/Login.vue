@@ -15,7 +15,12 @@ export default {
         var ui = new firebaseui.auth.AuthUI(firebase.auth());
         var uiConfig = {
             signInSuccessUrl: "/about",
-            signInOptions: [firebase.auth.FacebookAuthProvider.PROVIDER_ID]
+            signInOptions: [
+            firebase.auth.EmailAuthProvider.PROVIDER_ID,
+            firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+            firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+            firebase.auth.TwitterAuthProvider.PROVIDER_ID
+            ]
         };
         ui.start("#firebaseui-auth-container", uiConfig);
     }

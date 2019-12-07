@@ -1,13 +1,13 @@
 <template>
-    <div class="login" id="firebaseui-auth-container">
-        
+    <div id="firebaseui-auth-container">
     </div>
 </template>
 
 <script>
 import firebase from "firebase";
-import firebaseui from "firebaseui";
-import "firebaseui/dist/firebaseui.css";
+import * as firebaseui from 'firebaseui';
+import  "firebaseui/dist/firebaseui.css";
+
 
 export default {
     name: "Login",

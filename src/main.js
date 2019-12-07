@@ -4,10 +4,11 @@ import router from "./router";
 import store from "./store";
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
-import firebase from 'firebase'
+import firebase from 'firebase';
+require('dotenv').config();
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCQ1JaixEnXr2T9xqs-l42iM1eCN2sxfHI",
+  apiKey: "process.env.API_KEY",
   authDomain: "michis-df301.firebaseapp.com",
   databaseURL: "https://michis-df301.firebaseio.com",
   projectId: "michis-df301",

@@ -5,7 +5,7 @@ import store from "./store";
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import firebase from 'firebase';
-require('dotenv').config();
+
 
 const firebaseConfig = {
   apiKey: "process.env.API_KEY",

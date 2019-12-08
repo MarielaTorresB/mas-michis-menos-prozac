@@ -1,24 +1,23 @@
 <template>
-    <div>
-        <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">
-        Component
-      </p>
-      <a href="#" class="card-header-icon" aria-label="more options">
-        <span class="icon">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-        </span>
-      </a>
-    </header>
-<div class="card-image">
-    <figure class="image is-4by3">
-      <img src="https://bulma.io/images/placeholders/1280x960.png" alt="Placeholder image">
-    </figure>
-  </div>
+    <div class="card-container">
+        <div class="card" v-for="(item, key) in info" :key="key">
+          <header class="card-header">
+            <p class="card-header-title" v-text="item.title"></p>
+            <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <!-- <i class="fas fa-angle-down" aria-hidden="true"></i> -->
+              <ion-icon name="heart-empty"></ion-icon>
+            </span>
+            </a>
+          </header>
+          <div class="card-image">
+          <figure class="image is-4by3">
+            <img :src="item.images.original.url" alt="Placeholder image">
+          </figure>
+          </div>
+          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
   </div>
-    </div>
 </template>
 
 <script>
@@ -29,32 +28,53 @@ export default {
   name: "CatsGifs",
   data() {
     return {
-      info: "",
-      URL_BASE: "http://api.giphy.com/v1/gifs/search?q=",
-      LIMIT: "&limit=15"
+      info: [],
+      URL_BASE: "https://api.giphy.com/v1/gifs/search?q=",
+      LIMIT: 15
     };
   },
   created() {
     axios
       .get(
-        `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}${this.LIMIT}`
+        `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
       )
       .then(response => {
         this.info = response.data.data;
       })
 
       .catch();
-  }
+  },
+//   methods: {
+//   scroll () {
+//     window.onscroll = () => {
+//       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+//       if (bottomOfWindow) {
+//         axios
+//           .get(
+//             `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&offset=5&limit=${this.LIMIT+5}`
+//             )
+//           .then(response => {
+//             this.info.push(response.data.results[0]);
+//           });
+//       }
+//     };
+//   },
+// },
+mounted() {
+  this.scroll(this.person);
+}
 };
 </script>
 
 <style scoped>
-.is-ancestor {
+.card-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-around;
 }
-.box {
+.card {
   width: 30vw;
   height: auto;
+  margin-top:2rem;
 }
 </style>

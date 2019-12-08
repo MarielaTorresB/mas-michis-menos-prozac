@@ -6,7 +6,6 @@ import Enter from "../views/Enter.vue";
 import Favoritos from "../components/Favoritos.vue";
 import CatsGifs from "../components/CatsGifs.vue";
 
-
 Vue.use(VueRouter);
 
 const routes = [

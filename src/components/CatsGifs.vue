@@ -1,11 +1,80 @@
 <template>
-    <div>
-        <h1> Fabulosos gifs de gatos WAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</h1>
+    <div class="card-container">
+        <div class="card" v-for="(item, key) in info" :key="key">
+          <header class="card-header">
+            <p class="card-header-title" v-text="item.title"></p>
+            <a href="#" class="card-header-icon" aria-label="more options">
+            <span class="icon">
+              <!-- <i class="fas fa-angle-down" aria-hidden="true"></i> -->
+              <ion-icon name="heart-empty"></ion-icon>
+            </span>
+            </a>
+          </header>
+          <div class="card-image">
+          <figure class="image is-4by3">
+            <img :src="item.images.original.url" alt="Placeholder image">
+          </figure>
+          </div>
+          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
     </div>
+  </div>
 </template>
 
 <script>
+// require('dotenv').config();
+import axios from "axios";
+
 export default {
-    name: "CatsGifs",
+  name: "CatsGifs",
+  data() {
+    return {
+      info: [],
+      URL_BASE: "https://api.giphy.com/v1/gifs/search?q=",
+      LIMIT: 15
+    };
+  },
+  created() {
+    axios
+      .get(
+        `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
+      )
+      .then(response => {
+        this.info = response.data.data;
+      })
+
+      .catch();
+  },
+//   methods: {
+//   scroll () {
+//     window.onscroll = () => {
+//       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
+//       if (bottomOfWindow) {
+//         axios
+//           .get(
+//             `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&offset=5&limit=${this.LIMIT+5}`
+//             )
+//           .then(response => {
+//             this.info.push(response.data.results[0]);
+//           });
+//       }
+//     };
+//   },
+// },
+mounted() {
+  this.scroll(this.person);
 }
+};
 </script>
+
+<style scoped>
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.card {
+  width: 30vw;
+  height: auto;
+  margin-top:2rem;
+}
+</style>

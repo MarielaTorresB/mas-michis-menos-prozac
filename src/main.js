@@ -5,10 +5,10 @@ import store from "./store";
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import firebase from 'firebase';
-require('dotenv').config();
+
 
 const firebaseConfig = {
-  apiKey: "process.env.API_KEY",
+  apiKey: "process.env.VUE_APP_API_GIPHY",
   authDomain: "michis-df301.firebaseapp.com",
   databaseURL: "https://michis-df301.firebaseio.com",
   projectId: "michis-df301",

@@ -8,7 +8,7 @@ import firebase from 'firebase';
 
 
 const firebaseConfig = {
-  apiKey: "process.env.API_KEY",
+  apiKey: "process.env.VUE_APP_API_GIPHY",
   authDomain: "michis-df301.firebaseapp.com",
   databaseURL: "https://michis-df301.firebaseio.com",
   projectId: "michis-df301",

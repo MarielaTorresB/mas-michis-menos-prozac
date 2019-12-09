@@ -1,6 +1,7 @@
 <template>
     <div class="card-container">
-        <div class="card" v-for="(item, key) in info" :key="key">
+      <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
+          <div class="card" v-for="(item, key) in info" :key="key">
           <header class="card-header">
             <p class="card-header-title" v-text="item.title"></p>
             <a href="#" class="card-header-icon" aria-label="more options">
@@ -15,7 +16,8 @@
             <img :src="item.images.original.url" alt="Placeholder image">
           </figure>
           </div>
-          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
+      </div>
+
     </div>
   </div>
 </template>
@@ -24,26 +26,51 @@
 // require('dotenv').config();
 import axios from "axios";
 
+
+
 export default {
   name: "CatsGifs",
   data() {
     return {
       info: [],
       URL_BASE: "https://api.giphy.com/v1/gifs/search?q=",
-      LIMIT: 15
+      limit: 5,
+      busy: false,
     };
   },
-  created() {
-    axios
-      .get(
-        `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
-      )
-      .then(response => {
-        this.info = response.data.data;
-      })
+  // created() {
+    // axios
+    //   .get(
+    //     `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
+    //   )
+    //   .then(response => {
+    //     this.info = response.data.data;
+    //   })
 
-      .catch();
+    //   .catch();
+  // },
+   methods: {
+    loadMore() {
+      // console.log("Adding 5 more data results");
+      this.busy = true;
+      axios
+        .get(
+          `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=15`
+        )
+        .then(response => {
+          const resp = response.data.data;
+          const append = resp.slice(
+          this.info.length,
+          this.info.length + this.limit
+        );
+        this.info = this.info.concat(append);
+        this.busy = false;
+      });
+    }
   },
+  created() {
+    this.loadMore();
+  }
 //   methods: {
 //   scroll () {
 //     window.onscroll = () => {
@@ -60,9 +87,9 @@ export default {
 //     };
 //   },
 // },
-mounted() {
-  this.scroll(this.person);
-}
+// mounted() {
+//   this.scroll(this.person);
+// }
 };
 </script>
 

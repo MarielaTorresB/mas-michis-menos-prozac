@@ -36,7 +36,7 @@ export default {
       busy: false,
     };
   },
-  created() {
+  // created() {
     // axios
     //   .get(
     //     `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
@@ -46,17 +46,17 @@ export default {
     //   })
 
     //   .catch();
-  },
+  // },
    methods: {
     loadMore() {
-      console.log("Adding 5 more data results");
+      // console.log("Adding 5 more data results");
       this.busy = true;
       axios
         .get(
-          `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.limit}`
+          `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=15`
         )
         .then(response => {
-          const append = response.data.slice(
+          const append = response.slice(
           this.info.length,
           this.info.length + this.limit
         );

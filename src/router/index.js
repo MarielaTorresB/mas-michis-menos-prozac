@@ -11,6 +11,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
+    redirect: "/cats",
     name: "home",
     component: Home,
     children: [

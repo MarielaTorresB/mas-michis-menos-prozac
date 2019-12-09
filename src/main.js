@@ -5,6 +5,7 @@ import store from "./store";
 import Buefy from 'buefy'
 import 'buefy/dist/buefy.css'
 import firebase from 'firebase';
+import 'firebase/firestore';
 import infiniteScroll from 'vue-infinite-scroll';
 Vue.use(infiniteScroll)
 
@@ -21,6 +22,18 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
+
+// Initialize Cloud Firestore through Firebase
+let db = firebase.firestore();
+
+// Disable deprecated features
+db.settings({
+  timestampsInSnapshots: true
+});
+
+export default {
+  db
+}
 
 Vue.use(Buefy)
 

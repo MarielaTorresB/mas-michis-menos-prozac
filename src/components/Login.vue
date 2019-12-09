@@ -12,13 +12,12 @@ import  "firebaseui/dist/firebaseui.css";
 export default {
     name: "Login",
     mounted() {
-        var ui = new firebaseui.auth.AuthUI(firebase.auth());
         let ui = firebaseui.auth.AuthUI.getInstance();
         if (!ui) {
             ui = new firebaseui.auth.AuthUI(firebase.auth());
 }
         var uiConfig = {
-            signInSuccessUrl: "/about",
+            signInSuccessUrl: "/favoritos",
             signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,

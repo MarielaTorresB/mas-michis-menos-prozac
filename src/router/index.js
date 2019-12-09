@@ -33,7 +33,7 @@ const routes = [
         component: CatsGifs
       },
       {
-        path: "/entrar",
+        path: "entrar",
         // name: "entrar",
         component: Enter
       }

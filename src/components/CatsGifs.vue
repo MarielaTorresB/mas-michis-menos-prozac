@@ -56,7 +56,8 @@ export default {
           `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=15`
         )
         .then(response => {
-          const append = response.slice(
+          const resp = response.data.data;
+          const append = resp.slice(
           this.info.length,
           this.info.length + this.limit
         );

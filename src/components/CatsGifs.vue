@@ -25,6 +25,11 @@
 <script>
 // require('dotenv').config();
 import axios from "axios";
+import infiniteScroll from 'vue-infinite-scroll'
+new Vue({
+  directives: {infiniteScroll}
+})
+
 
 export default {
   name: "CatsGifs",

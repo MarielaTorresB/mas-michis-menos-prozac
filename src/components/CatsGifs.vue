@@ -1,38 +1,15 @@
 <template>
     <div class="card-container">
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-          <div class="card" v-for="(item, key) in info" :key="key">
-          <header class="card-header">
-            <p class="card-header-title">{{ item.title | cut | capitalize }}</p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-            <span class="icon">
-              <i :class="isFav ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
-            </span>
-            </a>
-          </header>
-          <div class="card-image">
-          <figure class="image is-4by3">
-            <img :src="item.images.original.url" alt="Placeholder image">
-          </figure>
-          </div>
-          <footer class="card-footer">
-            <a href="#" class="card-footer-item">Save</a>
-            <a href="#" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Delete</a>
-          </footer>
-          <b-button v-text="isFav ? 'Favorita' : 'Guardar en Favoritos'"></b-button>
-           <b-button>
-                Add <span class="mdi mdi mdi-home"></span>
-            </b-button>
+        <CatCard v-for="(item, key) in info" :key="key" :title="item.title" :image="item.images.original.url"/> 
       </div>
     </div>
-  </div>
+  
 </template>
 
 <script>
-// require('dotenv').config();
 import axios from "axios";
-
+import CatCard from "../components/CatCard";
 
 
 export default {
@@ -44,6 +21,9 @@ export default {
       limit: 5,
       busy: false,
     };
+  },
+  components:{
+    CatCard
   },
   methods: {
     loadMore() {
@@ -70,25 +50,8 @@ export default {
   created() {
     this.loadMore();
   },
-  filters: {
-  cut: function (value) {
-    const myTitle=value.split('GIF')
-    return myTitle[0]
-  },
-  capitalize: function (value) {
-    if (!value) return ''
-    value = value.toString()
-    return value.charAt(0).toUpperCase() + value.slice(1)
-  },
-  computed: {
-    isFav(){
-      let myGifs= this.$store.state.favGifs
 
-      let index=myGifs.findIndex(gif => gif.id === this.id)
-      return index >=0
-    }
-  },
-}
+ 
 };
 </script>
 
@@ -99,7 +62,7 @@ export default {
   justify-content: space-around;
 }
 .card {
-  width: 30vw;
+  width: 40vw;
   height: auto;
   margin-top:2rem;
 }

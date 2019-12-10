@@ -3,10 +3,10 @@
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
           <div class="card" v-for="(item, key) in info" :key="key">
           <header class="card-header">
-            <p class="card-header-title">{{ item.title | cut }}</p>
+            <p class="card-header-title">{{ item.title | cut | capitalize }}</p>
             <a href="#" class="card-header-icon" aria-label="more options">
             <span class="icon">
-              <i :class="item.like ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
+              <i :class="isFav ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
             </span>
             </a>
           </header>
@@ -20,7 +20,7 @@
             <a href="#" class="card-footer-item">Edit</a>
             <a href="#" class="card-footer-item">Delete</a>
           </footer>
-          <b-button v-text="item.like ? 'Favorita' : 'Guardar en Favoritos'"></b-button>
+          <b-button v-text="isFav ? 'Favorita' : 'Guardar en Favoritos'"></b-button>
            <b-button>
                 Add <span class="mdi mdi mdi-home"></span>
             </b-button>
@@ -74,7 +74,20 @@ export default {
   cut: function (value) {
     const myTitle=value.split('GIF')
     return myTitle[0]
-  }
+  },
+  capitalize: function (value) {
+    if (!value) return ''
+    value = value.toString()
+    return value.charAt(0).toUpperCase() + value.slice(1)
+  },
+  computed: {
+    isFav(){
+      let myGifs= this.$store.state.favGifs
+
+      let index=myGifs.findIndex(gif => gif.id === this.id)
+      return index >=0
+    }
+  },
 }
 };
 </script>

@@ -2,7 +2,6 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import About from "../components/About.vue";
-import Enter from "../views/Enter.vue";
 import Favoritos from "../components/Favoritos.vue";
 import CatsGifs from "../components/CatsGifs.vue";
 
@@ -32,19 +31,9 @@ const routes = [
         // when /user/:id/posts is matched
         path: "cats",
         component: CatsGifs
-      },
-      {
-        path: "entrar",
-        // name: "entrar",
-        component: Enter
       }
     ]
-  },
-  // {
-  //   path: "/entrar",
-  //   name: "entrar",
-  //   component: Enter
-  // }
+  }
 ];
 
 const router = new VueRouter({

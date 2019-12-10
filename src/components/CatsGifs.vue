@@ -1,31 +1,15 @@
 <template>
     <div class="card-container">
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-          <div class="card" v-for="(item, key) in info" :key="key">
-          <header class="card-header">
-            <p class="card-header-title" v-text="item.title"></p>
-            <a href="#" class="card-header-icon" aria-label="more options">
-            <span class="icon">
-              <!-- <i class="fas fa-angle-down" aria-hidden="true"></i> -->
-              <ion-icon name="heart-empty"></ion-icon>
-            </span>
-            </a>
-          </header>
-          <div class="card-image">
-          <figure class="image is-4by3">
-            <img :src="item.images.original.url" alt="Placeholder image">
-          </figure>
-          </div>
+        <CatCard @toggleLike="myToggleLike" v-for="(item, key) in info" :key="key" :title="item.title" :image="item.images.original.url" :id="item.id" :like="item.like"/> 
       </div>
-
     </div>
-  </div>
+  
 </template>
 
 <script>
-// require('dotenv').config();
 import axios from "axios";
-
+import CatCard from "../components/CatCard";
 
 
 export default {
@@ -38,27 +22,22 @@ export default {
       busy: false,
     };
   },
-  // created() {
-    // axios
-    //   .get(
-    //     `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
-    //   )
-    //   .then(response => {
-    //     this.info = response.data.data;
-    //   })
-
-    //   .catch();
-  // },
-   methods: {
+  components:{
+    CatCard
+  },
+  methods: {
     loadMore() {
-      // console.log("Adding 5 more data results");
       this.busy = true;
       axios
         .get(
           `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=15`
         )
         .then(response => {
-          const resp = response.data.data;
+          let resp = response.data.data;
+          resp=resp.map(elem => {
+            elem.like= false;
+            return elem
+          })
           const append = resp.slice(
           this.info.length,
           this.info.length + this.limit
@@ -66,30 +45,18 @@ export default {
         this.info = this.info.concat(append);
         this.busy = false;
       });
+    },
+    myToggleLike (data){
+      let gifLike = this.info.find(item => item.id=== data.id)
+      gifLike.like = data.like
+      this.$store.commit('toggleFav', gifLike)
     }
   },
   created() {
     this.loadMore();
-  }
-//   methods: {
-//   scroll () {
-//     window.onscroll = () => {
-//       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-//       if (bottomOfWindow) {
-//         axios
-//           .get(
-//             `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&offset=5&limit=${this.LIMIT+5}`
-//             )
-//           .then(response => {
-//             this.info.push(response.data.results[0]);
-//           });
-//       }
-//     };
-//   },
-// },
-// mounted() {
-//   this.scroll(this.person);
-// }
+  },
+
+ 
 };
 </script>
 
@@ -100,7 +67,7 @@ export default {
   justify-content: space-around;
 }
 .card {
-  width: 30vw;
+  width: 40vw;
   height: auto;
   margin-top:2rem;
 }

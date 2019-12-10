@@ -17,7 +17,6 @@
             <a href="#" class="navbar-item is-active"><router-link to="/cats">Home</router-link></a>
             <a href="#" class="navbar-item"><router-link to="/about">About</router-link></a>
             <a href="#" class="navbar-item"><router-link to="/favoritos"> Favoritos</router-link></a>
-            <a href="#" class="navbar-item"><router-link to="/entrar">Entrar</router-link></a>
           </div>
         </div>
       </div>

@@ -7,26 +7,12 @@
                 <i :class="isFav ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
                 </span>
             </b-button>
-            <!-- <a href="#" class="card-header-icon" aria-label="more options">
-            <span class="icon">
-              <i :class="isFav ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
-            </span>
-            </a> -->
         </header>
           <div class="card-image">
         <figure class="image is-4by3">
             <img :src="image" alt="Placeholder image">
         </figure>
           </div>
-        <!-- <footer class="card-footer">
-            <a href="#" class="card-footer-item">Save</a>
-            <a href="#" class="card-footer-item">Edit</a>
-            <a href="#" class="card-footer-item">Delete</a>
-        </footer>
-          <b-button v-text="isFav ? 'Favorita' : 'Guardar en Favoritos'"></b-button>
-           <b-button>
-                Add <span class="mdi mdi mdi-home"></span>
-            </b-button> -->
     </div>
 </template>
 
@@ -58,7 +44,8 @@ export default {
             let data ={
                 id: this.id,
                 like: !this.like,
-                image: this.image
+                image: this.image,
+                title: this.title
             }
             this.$emit('toggleLike', data)
         }

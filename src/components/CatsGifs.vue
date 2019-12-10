@@ -3,11 +3,10 @@
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
           <div class="card" v-for="(item, key) in info" :key="key">
           <header class="card-header">
-            <p class="card-header-title" v-text="item.title"></p>
+            <p class="card-header-title">{{ item.title | cut }}</p>
             <a href="#" class="card-header-icon" aria-label="more options">
             <span class="icon">
-              <!-- <i class="fas fa-angle-down" aria-hidden="true"></i> -->
-              <ion-icon name="heart-empty"></ion-icon>
+              <i :class="item.like ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
             </span>
             </a>
           </header>
@@ -16,6 +15,15 @@
             <img :src="item.images.original.url" alt="Placeholder image">
           </figure>
           </div>
+          <footer class="card-footer">
+            <a href="#" class="card-footer-item">Save</a>
+            <a href="#" class="card-footer-item">Edit</a>
+            <a href="#" class="card-footer-item">Delete</a>
+          </footer>
+          <b-button v-text="item.like ? 'Favorita' : 'Guardar en Favoritos'"></b-button>
+           <b-button>
+                Add <span class="mdi mdi mdi-home"></span>
+            </b-button>
       </div>
     </div>
   </div>
@@ -46,14 +54,10 @@ export default {
         )
         .then(response => {
           let resp = response.data.data;
-          // resp=resp.map(elem => {
-          //   elem.like= false;
-          //   return
-          // })
-          // const resp=response.data.data.map(elem => {
-          //   elem.like= false;
-          //   return
-          // })
+          resp=resp.map(elem => {
+            elem.like= false;
+            return elem
+          })
           const append = resp.slice(
           this.info.length,
           this.info.length + this.limit
@@ -65,7 +69,13 @@ export default {
   },
   created() {
     this.loadMore();
+  },
+  filters: {
+  cut: function (value) {
+    const myTitle=value.split('GIF')
+    return myTitle[0]
   }
+}
 };
 </script>
 

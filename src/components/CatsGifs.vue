@@ -17,7 +17,6 @@
           </figure>
           </div>
       </div>
-
     </div>
   </div>
 </template>
@@ -38,27 +37,23 @@ export default {
       busy: false,
     };
   },
-  // created() {
-    // axios
-    //   .get(
-    //     `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=${this.LIMIT}`
-    //   )
-    //   .then(response => {
-    //     this.info = response.data.data;
-    //   })
-
-    //   .catch();
-  // },
-   methods: {
+  methods: {
     loadMore() {
-      // console.log("Adding 5 more data results");
       this.busy = true;
       axios
         .get(
           `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&limit=15`
         )
         .then(response => {
-          const resp = response.data.data;
+          let resp = response.data.data;
+          // resp=resp.map(elem => {
+          //   elem.like= false;
+          //   return
+          // })
+          // const resp=response.data.data.map(elem => {
+          //   elem.like= false;
+          //   return
+          // })
           const append = resp.slice(
           this.info.length,
           this.info.length + this.limit
@@ -71,25 +66,6 @@ export default {
   created() {
     this.loadMore();
   }
-//   methods: {
-//   scroll () {
-//     window.onscroll = () => {
-//       let bottomOfWindow = document.documentElement.scrollTop + window.innerHeight === document.documentElement.offsetHeight;
-//       if (bottomOfWindow) {
-//         axios
-//           .get(
-//             `${this.URL_BASE}cats&api_key=${process.env.VUE_APP_API_GIPHY}&offset=5&limit=${this.LIMIT+5}`
-//             )
-//           .then(response => {
-//             this.info.push(response.data.results[0]);
-//           });
-//       }
-//     };
-//   },
-// },
-// mounted() {
-//   this.scroll(this.person);
-// }
 };
 </script>
 

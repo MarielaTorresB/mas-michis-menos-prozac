@@ -1,7 +1,7 @@
 <template>
     <div class="card-container">
       <div v-infinite-scroll="loadMore" infinite-scroll-disabled="busy" infinite-scroll-distance="limit">
-        <CatCard v-for="(item, key) in info" :key="key" :title="item.title" :image="item.images.original.url"/> 
+        <CatCard @toggleLike="myToggleLike" v-for="(item, key) in info" :key="key" :title="item.title" :image="item.images.original.url" :id="item.id" :like="item.like"/> 
       </div>
     </div>
   
@@ -45,6 +45,11 @@ export default {
         this.info = this.info.concat(append);
         this.busy = false;
       });
+    },
+    myToggleLike (data){
+      let gifLike = this.info.find(item => item.id=== data.id)
+      gifLike.like = data.like
+      this.$store.commit('toggleFav', gifLike)
     }
   },
   created() {

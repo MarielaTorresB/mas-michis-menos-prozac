@@ -2,7 +2,7 @@
     <div class="card">
         <header class="card-header">
             <p class="card-header-title">{{ title | cut | capitalize }}</p>
-            <b-button>
+            <b-button @click="toggleLike">
                 <span class="icon">
                 <i :class="isFav ? 'fas' : 'far'" class="fa-heart"  aria-hidden="true"></i>
                 </span>
@@ -33,7 +33,7 @@
 <script>
 export default {
     name: "CatCard",
-    props:['title', 'image', 'key'],
+    props:['title', 'image', 'key', 'id', 'like'],
     filters: {
         cut: function (value) {
             const myTitle=value.split('GIF')
@@ -52,7 +52,17 @@ export default {
       let index=myGifs.findIndex(gif => gif.id === this.id)
       return index >=0
     }
-  },
+    },
+    methods: {
+        toggleLike(){
+            let data ={
+                id: this.id,
+                like: !this.like,
+                image: this.image
+            }
+            this.$emit('toggleLike', data)
+        }
+    },
 };
 </script>
 

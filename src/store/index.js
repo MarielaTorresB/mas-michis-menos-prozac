@@ -19,6 +19,11 @@ export default new Vuex.Store({
       state.favGifs.push(gif)
     }
   },
+  getters: {
+    favs: state => {
+      return state.favGifs
+    }
+  },
   actions: {},
   modules: {},
   // aquí agregamos el plugin

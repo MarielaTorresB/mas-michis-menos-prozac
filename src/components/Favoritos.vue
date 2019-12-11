@@ -37,9 +37,16 @@ export default {
   flex-wrap: wrap;
   justify-content: space-around;
 }
+
 .card {
-  width: 40vw;
+  width: 75vw;
   height: auto;
   margin-top:2rem;
+}
+
+@media only screen and (min-width: 700px) {
+  .card {
+    width: 50vw;
+  }
 }
 </style>

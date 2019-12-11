@@ -110,14 +110,19 @@ export default {
   justify-content: space-around;
 }
 .card {
-  width: 40vw;
+  width: 75vw;
   height: auto;
   margin-top:2rem;
 }
+@media only screen and (min-width: 700px) {
+  .card {
+    width: 50vw;
+  }
+}
 
 .search{
-  max-height: 50vw;
-  width: 60vw;
+  max-height: 80vw;
+  width: 80vw;
 }
 
 .busqueda{

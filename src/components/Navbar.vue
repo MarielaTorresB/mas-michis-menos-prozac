@@ -3,6 +3,12 @@
      <nav class="navbar is-primary">
       <div class="container">
         <div class="navbar-brand">
+          <b-navbar-item tag="router-link" :to="{ path: '/' }">
+            <img
+              src="../assets/huella.png"
+              alt="Huella de gato"
+            >
+          </b-navbar-item>
           <a class="navbar-item" href="#" style="font-weight:bold;">
             Más michis, menos prozac
           </a>
@@ -41,6 +47,6 @@ export default {
 <style scoped>
 a{
   text-decoration: none;
-  color: black;
+  color: white;
 }
 </style>
